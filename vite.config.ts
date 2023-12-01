@@ -7,6 +7,11 @@ import ViteFonts from 'unplugin-fonts/vite'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+// Element Plus
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -29,6 +34,14 @@ export default defineConfig({
           },
         ],
       },
+    }),
+    // Element Plus
+
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
     }),
   ],
   define: { 'process.env': {} },
