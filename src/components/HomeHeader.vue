@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from "vue";
 const timer = ref(false);
+const tab = ref("0");
 
 // 视口宽度
 const vieWidth = ref(
@@ -8,9 +9,10 @@ const vieWidth = ref(
 );
 onMounted(() => {
   window.onresize = async () => {
-    vieWidth.value = document.documentElement.clientWidth || document.body.clientWidth
-  }
-})
+    vieWidth.value =
+      document.documentElement.clientWidth || document.body.clientWidth;
+  };
+});
 //监听并更新视口宽度
 watch(vieWidth, () => {
   // 为了避免频繁触发导致页面卡顿，使用定时器
@@ -21,8 +23,7 @@ watch(vieWidth, () => {
       timer.value = false;
     }, 200);
   }
-}
-);
+});
 </script>
 <template>
   <div class="header">
@@ -30,9 +31,11 @@ watch(vieWidth, () => {
     <div class="header_box">
       <div class="nav">
         <div class="icon"></div>
-        <v-tabs v-if="vieWidth > 1000">
-          <v-tab value="1">首页</v-tab>
-          <v-tab value="2">区块链系统</v-tab>
+        <v-tabs v-if="vieWidth > 1000" v-model="tab">
+          <v-tab @click="$router.push('/')" value="1">首页</v-tab>
+          <v-tab @click="$router.push('/blockchain')" value="2"
+            >区块链系统</v-tab
+          >
           <v-tab value="3">商城系统</v-tab>
           <v-tab value="4">成功案列</v-tab>
           <v-tab value="5">关于我们</v-tab>
@@ -42,8 +45,7 @@ watch(vieWidth, () => {
         <div class="nav1" v-else>
           <v-menu>
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" icon="mdi-menu" v-bind="props">
-              </v-btn>
+              <v-btn color="primary" icon="mdi-menu" v-bind="props"> </v-btn>
             </template>
             <v-list>
               <v-list-item>
@@ -71,7 +73,6 @@ watch(vieWidth, () => {
           </v-menu>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -92,7 +93,6 @@ watch(vieWidth, () => {
   position: absolute;
   top: 0;
   left: 0;
-
 }
 
 .v-btn {
@@ -100,8 +100,7 @@ watch(vieWidth, () => {
   box-shadow: none;
 }
 
-
-@media (max-width:1400px) {
+@media (max-width: 1400px) {
   .header_box {
     .nav {
       padding: 0 50px;
@@ -111,17 +110,15 @@ watch(vieWidth, () => {
     .icon {
       margin-left: 50px;
       margin-left: 4.5%;
-
     }
   }
-
 }
 
-@media (max-width:700px) {
+@media (max-width: 700px) {
   .header_box {
     .nav {
       margin-top: 2%;
-      .v-btn--icon.v-btn--density-default{
+      .v-btn--icon.v-btn--density-default {
         width: 30px;
         height: 30px;
       }
@@ -143,12 +140,9 @@ watch(vieWidth, () => {
         width: 20px;
         height: 20px;
         background-color: white;
-
       }
     }
   }
-
-
 }
 
 .nav {
@@ -163,7 +157,6 @@ watch(vieWidth, () => {
     width: 40px;
     height: 40px;
     background-color: white;
-
   }
 
   .v-tab.v-tab {
@@ -173,7 +166,3 @@ watch(vieWidth, () => {
   }
 }
 </style>
-
-
-
- 
