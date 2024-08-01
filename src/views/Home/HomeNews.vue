@@ -1,19 +1,24 @@
 <script lang="ts" setup>
-//
+import { useAppStore } from "@/store/app"
+import { storeToRefs } from 'pinia'
+
+const appStore = useAppStore()
+const { indexData } = storeToRefs(appStore)
+
 </script>
 <template>
   <div class="news">
     <h3>新闻动态</h3>
     <p class="color_A0A1A3_4">支持全终端+全场景区块链系统应用开发，以服务为核心，为客户持续创造价值</p>
-    <div class="news_grids">
+    <div class="news_grids" v-for="itme in indexData?.new_list" :key="itme.id">
       <div class="item1">
-        <img src="@/assets/img/news1.png" alt="">
+        <img :src="itme.cover" alt="">
         <div class="content">
-          <i>九州通医药集团董事长刘长云和总经理刘义常一行领...</i>
-          <span>2021.6.10</span>
+          <i>{{ itme.title }}</i>
+          <span>{{ itme.created_at }}</span>
         </div>
       </div>
-      <div class="item2">
+      <!-- <div class="item2">
         <img src="@/assets/img/news2.png" alt="">
         <div class="content">
           <i>九州通医药集团董事长刘长云和总经理刘义常一行领...</i>
@@ -45,7 +50,7 @@
         <div>
           <a href="#">更多新闻</a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

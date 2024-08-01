@@ -1,5 +1,8 @@
-// Composables
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createWebHashHistory,
+  createRouter,
+  createWebHistory,
+} from "vue-router";
 
 const routes = [
   {
@@ -19,12 +22,43 @@ const routes = [
         name: "blockchain",
         component: () => import("@/views/blockchain.vue"),
       },
+      {
+        path: "store",
+        name: "store",
+        component: () => import("@/views/store.vue"),
+      },
+      {
+        path: "sigrid",
+        name: "sigrid",
+        component: () => import("@/views/sigrid.vue"),
+      },
+      {
+        path: "news",
+        name: "news",
+        component: () => import("@/views/news.vue"),
+      },
+      {
+        path: "new",
+        name: "new",
+        component: () => import("@/views/new.vue"),
+      },
+      {
+        path: "aboutprep",
+        name: "aboutprep",
+        component: () => import("@/views/aboutprep.vue"),
+      },
+      {
+        path: "contact",
+        name: "contact",
+        component: () => import("@/views/contact.vue"),
+      },
     ],
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
+  // history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 

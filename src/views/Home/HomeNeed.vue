@@ -1,10 +1,35 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import { contact } from "@/api/api";
+import { ElMessage } from "element-plus";
 const input = ref({
-  name: '',
-  number: '',
-  string: ''
+  name: "",
+  phone: "",
+  content: "",
 });
+const submit = async () => {
+  if (!input.value.name || !input.value.phone || !input.value.content) {
+    return;
+  }
+  const res: any = await contact(input.value);
+  if (res.code === 200) {
+    input.value = {
+      name: "",
+      phone: "",
+      content: "",
+    };
+    ElMessage({
+      message: "提交成功",
+      type: "success",
+    });
+  } else {
+    ElMessage({
+      message: res.msg,
+      type: "warning",
+    });
+  }
+};
+
 
 </script>
 <template>
@@ -13,16 +38,16 @@ const input = ref({
       <div class="demand">朋友，请填写您的需求提交给我们</div>
       <el-form>
         <el-form-item><el-input class="angle" v-model="input.name" placeholder="称呼姓名" /></el-form-item>
-        <el-form-item><el-input class="phone angle" v-model="input.number" placeholder="联系电话" /></el-form-item>
-        <el-form-item><el-input resize="none" type="textarea" class="need_depict angle " v-model="input.string"
+        <el-form-item><el-input class="phone angle" v-model="input.phone" placeholder="联系电话" /></el-form-item>
+        <el-form-item><el-input resize="none" type="textarea" class="need_depict angle" v-model="input.content"
             placeholder="简单描述您的项目类型以及需求，如区块链开发、交易所、dapp、公链、钱包、合约等" /></el-form-item>
         <el-form-item>
-          <el-button class="submit">提交项目需求</el-button>
+          <el-button class="submit" @click="submit">提交项目需求</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
-</template> 
+</template>
 
 <style lang="scss" scoped>
 .need {
@@ -33,7 +58,7 @@ const input = ref({
   background: #f8f8f8;
   padding: 4.3% 5.4% 4.4%;
 
-  @media (max-width:1250px) {
+  @media (max-width: 1250px) {
     margin: 0 20px;
   }
 }
@@ -44,7 +69,7 @@ const input = ref({
   margin-bottom: 4.2%;
 }
 
-@media (max-width:700px) {
+@media (max-width: 700px) {
   .need {
     .demand {
       font-size: 20px;
@@ -54,7 +79,7 @@ const input = ref({
     .angle {
       height: 43px;
       font-size: 15px;
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
 
     .submit.submit {
@@ -63,27 +88,24 @@ const input = ref({
     }
 
     div {
-      .el-form>.el-form-item:nth-child(-n+2) {
+      .el-form>.el-form-item:nth-child(-n + 2) {
         width: 100%;
-
       }
 
-      .el-form-item:nth-child(-n+3) {
+      .el-form-item:nth-child(-n + 3) {
         margin-bottom: 0;
-
       }
     }
   }
-
-
-
 }
+
 .angle {
   --el-input-border-radius: none;
   font-size: 18px;
   color: #a0a1a3;
   height: 62px;
 }
+
 .el-form {
   width: 100%;
   display: flex;
@@ -92,15 +114,15 @@ const input = ref({
   flex-wrap: wrap;
 }
 
-.el-form-item:nth-child(-n+3) {
+.el-form-item:nth-child(-n + 3) {
   margin-bottom: 28px;
 }
 
-.el-form>.el-form-item:nth-child(-n+2) {
+.el-form>.el-form-item:nth-child(-n + 2) {
   width: 49%;
 }
 
-.el-form>.el-form-item:nth-child(+n+3) {
+.el-form>.el-form-item:nth-child(+n + 3) {
   width: 100%;
 }
 
@@ -111,4 +133,5 @@ const input = ref({
   font-size: 26px;
   --el-button-bg-color: #f8f8f8;
   border-radius: initial;
-}</style>
+}
+</style>

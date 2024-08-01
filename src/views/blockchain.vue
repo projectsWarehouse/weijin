@@ -1,55 +1,68 @@
 <script lang="ts" setup>
 import HomeNeed from "./Home/HomeNeed.vue";
+import CardList from "./Blockchain/CardList-1.vue";
+import { projectList } from "@/api/api";
+import { onMounted, ref } from "vue";
+const list = ref([
+  {
+    id: Number,
+    title: String,
+    cover: String,
+    content: String,
+    created_at: String,
+  },
+]);
+const loading = ref(true);
+
+onMounted(() => {
+  initData();
+});
+const initData = async () => {
+  loading.value = true;
+
+  const res: any = await projectList({ cate: 1 });
+  if (res.code === 200) {
+    list.value = res.data;
+    loading.value = false;
+  }
+};
 </script>
 <template>
   <div class="w">
-    <div class="card-list">
-      <div v-for="v in 8" :key="v">
-        <div class="card">
-          <img src="@/assets/img/web-build-one-img-1@2x.png" alt="" />
-          <div class="key">交易所源码</div>
-          <div class="val">
-            OTC-C2C-台约-秒合约-永续合约-量化智能K线 合系统挂单充提币
-            预警系统安全系统行情多功能版本,多终端设备,源码部署,最快7天上线,安全稳定
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-list-1">
+    <div class="card-list" v-if="!loading">
       <div>
-        <div v-for="v in 6" :key="v">
-          <div class="card">
-            <div class="name">
-              <img src="@/assets/img/_81@2x.png" alt="" />
-              商务立项对接项目
-            </div>
-            <div class="val">
-              商务人员对项目有整体把控,明确产品类型和开发周期,
-              以及时间节点.确定项目组的人员安排.
-            </div>
-            <div class="key">01</div>
-          </div>
+        <div class="card" v-for="itme in list" :key="itme.id">
+          <img :src="itme.cover" alt="" />
+          <div class="key">{{ itme.title }}</div>
+          <div class="val" v-html="itme.content"></div>
         </div>
       </div>
     </div>
-    <HomeNeed />
   </div>
+  <CardList />
+  <HomeNeed />
 </template>
 
 <style lang="scss" scoped>
 .card-list {
-  max-width: 1200px;
-  margin: 0 auto;
+  margin-bottom: 10%;
   margin-top: 5%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px 92px;
+
+  >div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 80px 92px;
+
+  }
+
   .card {
-    margin: 0 auto;
     max-width: 714px;
+
     img {
-      width: 100%;
+      max-width: 100%;
     }
+
     .key {
       font-size: 26px;
       font-family: Source Han Sans CN, Source Han Sans CN;
@@ -57,6 +70,7 @@ import HomeNeed from "./Home/HomeNeed.vue";
       color: #000000;
       position: relative;
       margin-top: 26px;
+
       &::before {
         content: "";
         position: absolute;
@@ -67,6 +81,7 @@ import HomeNeed from "./Home/HomeNeed.vue";
         background: #0b59dd;
       }
     }
+
     .val {
       font-size: 20px;
       font-family: Source Han Sans CN, Source Han Sans CN;
@@ -77,78 +92,14 @@ import HomeNeed from "./Home/HomeNeed.vue";
     }
   }
 }
-.card-list-1 {
-  background: #2b2a30;
-  padding: 5% 0;
-  margin-top: 10%;
-  margin-bottom: 8%;
-  & > div {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 128px 0;
-    color: #ffffff;
-    .card {
-      max-width: 330px;
-      margin: 0 auto;
-      .name {
-        display: flex;
-        align-items: center;
-        font-size: 22px;
-        font-family: Source Han Sans CN, Source Han Sans CN;
-        font-weight: 500;
-        color: #ffffff;
-        img {
-          width: 69px;
-          margin-right: 24px;
-        }
-      }
-      .val {
-        font-size: 14px;
-        font-family: Source Han Sans CN, Source Han Sans CN;
-        font-weight: 400;
-        color: #a0a1a3;
-        line-height: 26px;
-        margin-top: 10px;
-      }
-      .key {
-        margin-top: 49px;
-        position: relative;
-        &::before {
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: -24px;
-          width: 25px;
-          height: 4px;
-          background: #248af5;
-        }
-      }
-    }
-  }
-}
+
 @media (max-width: 1400px) {
   .card-list {
     display: block;
+    padding: 0 20px;
+
     .card {
-      margin: 8% 5%;
-    }
-  }
-  .card-list-1 {
-    & > div {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-}
-@media (max-width: 960px) {
-  .card-list-1 {
-    & > div {
-      display: block;
-      .card {
-        /* margin: 0 5%; */
-        margin-bottom: 10%;
-      }
+      margin: 8% auto;
     }
   }
 }

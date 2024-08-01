@@ -1,18 +1,23 @@
 <script lang="ts" setup>
-//
+import { useAppStore } from "@/store/app";
+import { storeToRefs } from "pinia";
+const appStore = useAppStore();
+const { indexData } = storeToRefs(appStore);
 </script>
 <template>
   <div class="system">
     <div class="system_box">
       <div class="header_content">
-        <h3> 完善的服务体系</h3>
-        <p>我们承接数字藏品平台/链游系统开发/区块链DAPP开发/合约交易系统/区块链商城系统开发/链上系统开发等项目</p>
+        <h3>完善的服务体系</h3>
+        <p>
+          我们承接数字藏品平台/链游系统开发/区块链DAPP开发/合约交易系统/区块链商城系统开发/链上系统开发等项目
+        </p>
       </div>
       <div class="body_carousel">
         <el-scrollbar always="false">
           <ol class="scrollbar-flex-content">
-            <li v-for="item in 4" :key="item" class="scrollbar-demo-item">
-              <img src="@/assets/img/system1.png" alt="">
+            <li v-for="(index, item) in indexData?.service_structure" :key="item" class="scrollbar-demo-item">
+              <img :src="index.cover" alt="" />
               <div class="experience">
                 <h5>区块链开发</h5>
                 <span class="color_A0A1A3_4">16年开发经验,大量案例</span>
@@ -32,23 +37,19 @@
 }
 
 .scrollbar-demo-item {
-  align-items: center;
-  justify-content: center;
   height: 420px;
   margin-bottom: 20px;
-
 }
 
-
-
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   .system.system {
     padding: 10% 20px;
 
     .header_content {
-      h3{
+      h3 {
         font-size: 20px;
       }
+
       p {
         font-size: 14px;
         line-height: 17px;
@@ -56,16 +57,42 @@
         width: 85%;
       }
     }
-    .system_box{
-      h5{
+
+    .system_box {
+      h5 {
         font-size: 20px;
         line-height: 20px;
         margin-bottom: 10px;
       }
     }
+  }
+}
 
+
+@media (max-width:400px) {
+  .el-scrollbar__view {
+    .scrollbar-flex-content {
+      gap: 20px;
+
+      .scrollbar-demo-item {
+        margin-bottom: 20px;
+        height: 370px;
+
+        img {
+          max-width: 300px;
+        }
+      }
+    }
   }
 
+
+
+
+
+  .body_carousel li .experience {
+    max-width: 357px;
+    min-height: 117px
+  }
 }
 
 .system {
@@ -92,7 +119,7 @@
   flex-direction: column;
 
   p {
-    color: #848D9E;
+    color: #848d9e;
     font-size: 16px;
     line-height: 16px;
     margin: 16px 0;
@@ -110,11 +137,11 @@
 
   li {
     img {
-      width: 100%;
+      max-width: 357px;
     }
 
     .experience {
-      width: 357px;
+      max-width: 357px;
       min-height: 117px;
       background: #fff;
       padding: 18px 30px 15px;

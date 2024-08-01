@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-//
+import { useAppStore } from "@/store/app"
+import { storeToRefs } from 'pinia'
+const appStore = useAppStore()
+const { indexData } = storeToRefs(appStore)
 </script>
 <template>
-  <div class="footer">
+  <div class="footer w">
     <div class="footer_box max_width">
       <div class="contact_left">
         <h4>徽金网络就在您身边</h4>
@@ -14,7 +17,7 @@
           <h5>以区块链的方式重塑产业结构</h5>
           <div class="contact_numder">
             <i>联系电话</i>
-            <p>8888-8888</p>
+            <p>{{ indexData.contact_phone }}</p>
           </div>
         </div>
         <span>2023 STSS Limited. All right reserved.</span>
@@ -33,6 +36,7 @@
   background-position: center center;
   color: #fff;
 }
+
 .footer_box {
   max-width: 1220px;
   height: 100%;
@@ -43,6 +47,7 @@
   margin: 0 auto;
   padding: 0 10px;
 }
+
 @media (max-width:1000px) {
   .footer_box {
     .contact_left {
@@ -99,6 +104,7 @@
     }
   }
 }
+
 .contact_left {
   margin-top: 143px;
   width: 100%;
@@ -134,6 +140,7 @@
   }
 
 }
+
 .contact_between {
   width: 100%;
 

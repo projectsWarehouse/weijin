@@ -1,5 +1,5 @@
 <template>
-  <div class="w">
+  <div>
     <HomeHeader />
   </div>
 </template>

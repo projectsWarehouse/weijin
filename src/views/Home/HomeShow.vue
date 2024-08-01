@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-//
+import { storeToRefs } from "pinia";
+import { useAppStore } from '@/store/app'
+const appStore = useAppStore();
+const { indexData } = storeToRefs(appStore)
 </script>
 <template>
   <div class="show">
@@ -12,63 +15,22 @@
         </li>
         <li class="color_fff_bold">
           <i>100<span>+</span></i>
-          <p>项目开发</p>
+          <p>开发团队</p>
         </li>
         <li class="color_fff_bold">
           <i>100<span>+</span></i>
-          <p>项目开发</p>
+          <p>产品案例</p>
         </li>
         <li class="color_fff_bold">
           <i>100<span>+</span></i>
-          <p>项目开发</p>
+          <p>服务客户</p>
         </li>
-
       </ul>
     </div>
     <!-- 主体内容模块 -->
-    <div class="show_main">
+    <!-- <div class="show_main">
       <ul>
-        <li>
-          <img src="@/assets/img/web-build-one-img-1.png" alt="">
-          <div class="content_box">
-            <div class="content">
-              <h3>交易所源码</h3>
-              <i></i>
-              <p class="color_A0A1A3_4">OTC-C2C-台约-秒合约-永续合约-量化智能K线 合系统挂单充提币 预警系统安全系统行情多功能版本,多终端设备,源码部署,最快7天上线,安全稳定</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="content_box">
-            <div class="content">
-              <h3>交易所源码</h3>
-              <i></i>
-              <p class="color_A0A1A3_4">OTC-C2C-台约-秒合约-永续合约-量化智能K线 合系统挂单充提币 预警系统安全系统行情多功能版本,多终端设备,源码部署,最快7天上线,安全稳定</p>
-            </div>
-          </div>
-          <img src="@/assets/img/web-build-one-img-1.png" alt="">
-        </li>
-        <li>
-          <img src="@/assets/img/web-build-one-img-1.png" alt="">
-          <div class="content_box">
-            <div class="content">
-              <h3>交易所源码</h3>
-              <i></i>
-              <p class="color_A0A1A3_4">OTC-C2C-台约-秒合约-永续合约-量化智能K线 合系统挂单充提币 预警系统安全系统行情多功能版本,多终端设备,源码部署,最快7天上线,安全稳定</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="content_box">
-            <div class="content">
-              <h3>交易所源码</h3>
-              <i></i>
-              <p class="color_A0A1A3_4">OTC-C2C-台约-秒合约-永续合约-量化智能K线 合系统挂单充提币 预警系统安全系统行情多功能版本,多终端设备,源码部署,最快7天上线,安全稳定</p>
-            </div>
-          </div>
-          <img src="@/assets/img/web-build-one-img-1.png" alt="">
-        </li>
-        <li>
+        <li v-for="(index,item) in indexData?.banner_list" :key="item">
           <img src="@/assets/img/web-build-one-img-1.png" alt="">
           <div class="content_box">
             <div class="content">
@@ -79,16 +41,15 @@
           </div>
         </li>
       </ul>
-    </div>
+    </div> -->
     <!-- bottom按钮模块 -->
-    <v-btn class="color_A0A1A3_4">
-      查看更多
-    </v-btn>
+    <!-- <v-btn class="color_A0A1A3_4"> 查看更多</v-btn> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
 .show {
+
   /* 横幅模块 */
   .banner {
     background: url(@/assets/img/show_banner.png);
@@ -170,11 +131,13 @@
       }
     }
   }
-/* 主体内容模块 */
+
+  /* 主体内容模块 */
   .show_main {
     ul {
       display: grid;
       margin-top: 2.5%;
+
       @media (max-width:900px) {
         row-gap: 0;
       }
@@ -184,6 +147,7 @@
       display: grid;
       grid-template-columns: (1fr 1fr);
       margin: 0 auto 4.5%;
+
       @media (max-width:1850px) {
         margin: 0 3% 4.5%;
 
@@ -284,18 +248,26 @@
       }
     }
 
+
     ul>li:nth-child(2n) {
+      transform: scaleX(-1) scaleY(1);
+
+      img {
+        transform: scaleX(-1) scaleY(1);
+      }
+
+      .content_box {
+        transform: scaleX(-1) scaleY(1);
+
+      }
+
       @media (max-width:900px) {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        justify-items: center;
-        margin: 0 auto;
-        padding: 0 20px;
+        display: none;
       }
     }
   }
-/* bottom按钮模块 */
+
+  /* bottom按钮模块 */
   .v-btn--size-default {
     font-size: 20px;
     width: 211px;

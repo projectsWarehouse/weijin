@@ -1,72 +1,20 @@
 <script lang="ts" setup>
-//
+import { useAppStore } from '@/store/app'
+import { storeToRefs } from 'pinia'
+const appStore = useAppStore()
+const { indexData } = storeToRefs(appStore)
 </script>
 <template>
   <div class="strength">
     <h3 class="text_center">服务优势</h3>
     <i></i>
     <ul>
-      <li>
+      <li v-for="(index, item) in indexData.service_list" :key="item">
         <div class="strength_itme text_center">
-          <h5>服务优势</h5>
+          <img :src="index.cover" alt="">
+          <h5>{{ index.title }}</h5>
           <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
-          </p>
-        </div>
-      </li>
-      <li>
-        <div class="strength_itme text_center">
-          <h5>服务优势</h5>
-          <p>
-            直销软件开发周期只需5到12个工作日，高效高质是对技术的追求也是对客户的承诺
+            {{ index.content }}
           </p>
         </div>
       </li>
@@ -99,8 +47,6 @@
         li {
           h5 {
             font-size: 16px;
-            line-height: 20px;
-            padding: 74px 0 10px 0;
           }
 
           p {
@@ -123,10 +69,6 @@
 
 }
 
-
-
-
-
 .strength {
   width: 100%;
   padding: 4.2% 0 6.3%;
@@ -140,25 +82,26 @@
   }
 
   ul {
-
     display: grid;
     grid-template-columns: auto auto auto auto;
     justify-content: center;
     grid-gap: 74px 90px;
 
+    li {
+      max-width: 258px;
+    }
+
   }
 
 
-  .strength_itme {
-    width: 258px;
-    height: 178px;
-    background: url(@/assets/img/组43.png) center top no-repeat;
+  img {
+    max-width: 100%;
   }
 
   h5 {
     font-size: 20px;
     line-height: 20px;
-    padding: 74px 0 10px 0;
+    padding: 15px 0 10px 0;
   }
 
   p {

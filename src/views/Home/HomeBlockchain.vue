@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-//
+import { useAppStore } from '@/store/app'
+import { storeToRefs } from "pinia";
+const appStore = useAppStore();
+const { indexData } = storeToRefs(appStore);
+
 </script>
 <template>
   <div class="blockchain_box">
@@ -19,49 +23,10 @@
       </div>
       <div class="blockchain_body">
         <ul>
-          <li>
-            <h5 class="color_000_5">交易所开发</h5>
-            <i class="color_A0A1A3_4">
-              合约交易所-市币交易所-秒合约交易所-永续合
-              约交易所-C2C交易所-OTC交易所-现货交易
-            </i>
+          <li v-for="(index, item) in indexData?.service_range" :key="item">
+            <h5 class="color_000_5">{{ index.title }}</h5>
+            <i class="color_A0A1A3_4">{{ index.content }}</i>
           </li>
-          <li>
-            <h5 class="color_000_5">交易所开发</h5>
-            <i class="color_A0A1A3_4">
-              合约交易所-市币交易所-秒合约交易所-永续合
-              约交易所-C2C交易所-OTC交易所-现货交易
-            </i>
-          </li>
-          <li>
-            <h5 class="color_000_5">交易所开发</h5>
-            <i class="color_A0A1A3_4">
-              合约交易所-市币交易所-秒合约交易所-永续合
-              约交易所-C2C交易所-OTC交易所-现货交易
-            </i>
-          </li>
-          <li>
-            <h5 class="color_000_5">交易所开发</h5>
-            <i class="color_A0A1A3_4">
-              合约交易所-市币交易所-秒合约交易所-永续合
-              约交易所-C2C交易所-OTC交易所-现货交易
-            </i>
-          </li>
-          <li>
-            <h5 class="color_000_5">交易所开发</h5>
-            <i class="color_A0A1A3_4">
-              合约交易所-市币交易所-秒合约交易所-永续合
-              约交易所-C2C交易所-OTC交易所-现货交易
-            </i>
-          </li>
-          <li>
-            <h5 class="color_000_5">交易所开发</h5>
-            <i class="color_A0A1A3_4">
-              合约交易所-市币交易所-秒合约交易所-永续合
-              约交易所-C2C交易所-OTC交易所-现货交易
-            </i>
-          </li>
-
         </ul>
       </div>
     </div>
@@ -73,6 +38,7 @@
   background-color: #f5f6f8;
   width: 100%;
   padding-top: 4%;
+  padding-bottom: 3%;
   min-height: 819px;
 
   .text_center {
@@ -113,7 +79,7 @@
 
     .blockchain_header {
       padding: 0 2%;
-      height: 95px;
+      max-height: 95px;
 
       img {
         width: 140px;
@@ -171,6 +137,7 @@
     .text_center {
       h3 {
         font-size: 20px;
+        line-height: 20px;
       }
 
       p {
@@ -184,8 +151,8 @@
 
     .blockchain_header {
       padding: 0 1%;
+      height: 100%;
       align-items: flex-start;
-      height: 85px;
 
 
       img {
@@ -195,7 +162,7 @@
       }
 
       h3 {
-        margin-top: 10px;
+        margin-top: 3%;
         font-size: 20px;
       }
 
@@ -217,7 +184,7 @@
 
         li {
           min-height: 100px;
-          padding: 30px 20px;
+          padding: 3% 20px;
 
         }
       }
@@ -225,14 +192,18 @@
   }
 }
 
+@function vw($px) {
+  @return ($px / 580) * 100vw;
+}
+
 @media (max-width:580px) {
-  .blockchain_box {
+  .blockchain_box.blockchain_box {
     padding-top: 2%;
 
     .text_center {
       p {
-        margin-top: 5px;
-        font-size: 12px;
+        margin-top: 2px;
+        font-size: vw(16);
       }
     }
   }
@@ -241,24 +212,25 @@
     .blockchain_header {
       padding: 0 1%;
       align-items: flex-start;
-      height: 70px;
 
 
       img {
-        width: 80px;
-        margin-top: 3px;
+        width: vw(110);
+        margin-top: 2px;
         margin-right: 0;
       }
 
       h3 {
-        margin-top: 10px;
-        font-size: 16px;
+        margin-top: 3%;
+        font-size: vw(20);
+        line-height: vw(20);
       }
 
       p {
         padding-bottom: 5px;
-        font-size: 12px;
-        line-height: 16px;
+        padding-top: 0;
+        font-size: vw(15);
+        line-height: vw(20);
       }
     }
 
